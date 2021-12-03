@@ -37,12 +37,10 @@ class FeatureSlides(db.Model):
     feature_name=db.Column(db.String)
     feature_img=db.Column(db.String)
 
-
 class MenuCategory(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     food_category_name=db.Column(db.String)
     
-
 class FoodMenuItem(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     food_item_name=db.Column(db.String)
@@ -50,12 +48,23 @@ class FoodMenuItem(db.Model):
     ingredients=db.Column(db.String)
     food_item_img=db.Column(db.String)
 
+class OrderDetails(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    order_number = db.Column(db.String)
+    person_name = db.Column(db.String)
+    sgst = db.Column(db.Float)
+    cgst = db.Column(db.Float)
+    bill_amount = db.Column(db.Float)
+    offer = db.Column(db.String)
 
-    
+class OrderItems(db.Model):
+    order_detail_id = db.Column(db.Integer, primary_key=True)
+    item_name = db.Column(db.String)
+    person_name = db.Column(db.String)
+    rate = db.Column(db.Float)
+    cooking_instructions = db.Column(db.String)
+    general_instructions = db.Column(db.String)
 
-
-
-    
 @app.route('/login', methods=["GET","POST"])
 def Login():
     if request.method=="POST":
