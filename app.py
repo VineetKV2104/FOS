@@ -21,6 +21,40 @@ class Superlogin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
     password = db.Column(db.String)
+
+class HomeSetting(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    logo=db.Column(db.String)
+    rest_name=db.Column(db.String)
+    rest_location=db.Column(db.String)
+    table_no=db.Column(db.String)
+    rest_address=db.Column(db.String)
+    rest_contact_no=db.Column(db.Integer)
+    gst_no=db.Column(db.String)
+
+class FeatureSlides(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    feature_name=db.Column(db.String)
+    feature_img=db.Column(db.String)
+
+
+class MenuCategory(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    food_category_name=db.Column(db.String)
+    
+
+class FoodMenuItem(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    food_item_name=db.Column(db.String)
+    food_item_rate=db.Column(db.Integer)
+    ingredients=db.Column(db.String)
+    food_item_img=db.Column(db.String)
+
+
+    
+
+
+
     
 @app.route('/login', methods=["GET","POST"])
 def Login():
