@@ -115,6 +115,21 @@ def admin():
     if not session.get("name"):
             return redirect("/login")
 
+
+@app.route('/cart', methods=["GET","POST"])
+def link_cart():
+    return render_template("front_end/cart.html")
+
+
+@app.route('/checkout', methods=["GET","POST"])
+def link_checkout():
+    return render_template("front_end/checkout.html")
+
+
+@app.route('/orders', methods=["GET","POST"])
+def link_orders():
+    return render_template("front_end/orders.html")
+
     return render_template("admin/index.html")
 if __name__ == '__main__':
    app.run(debug=True)
