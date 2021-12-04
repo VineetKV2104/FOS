@@ -22,6 +22,30 @@ class Superlogin(db.Model):
     username = db.Column(db.String)
     password = db.Column(db.String)
 
+class Tax(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tax_type = db.Column(db.String)
+    tax_value = db.Column(db.String)
+
+class Cuisine(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cuisine_name = db.Column(db.String)
+
+class FoodFilters(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filter_name = db.Column(db.String)
+
+class IngCategory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ing_cat_name = db.Column(db.String)
+
+class Ingredient(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ing_name = db.Column(db.String)
+class RestActivity(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    activity_name = db.Column(db.String)
+
 class HomeSetting(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     logo=db.Column(db.String)
