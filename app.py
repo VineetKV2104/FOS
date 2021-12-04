@@ -112,9 +112,15 @@ def logout():
 @app.route('/admin', methods=["GET","POST"])
 def admin():
     if not session.get("name"):
-            return redirect("/login")
-
+        return redirect("/login")
+        
     return render_template("admin/index.html")
+
+@app.route('/')
+def index():
+    return render_template('')
+
+
 if __name__ == '__main__':
    app.run(debug=True)
 
