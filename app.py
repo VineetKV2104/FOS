@@ -7,7 +7,6 @@ from flask import Flask, render_template, redirect, request, session
 from flask_session import Session
 
 
-
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///fos.db' 
@@ -121,6 +120,21 @@ def admin():
 def index():
     return render_template('')
 
+@app.route('/foodcat')
+def foodcat():
+    fetch=MenuCategory.query.all() 
+    return render_template('admin/foodcat.html', getinfo=fetch)
+
+@app.route('/addfoodcat', methods=["GET","POST"])
+def addfoodcat():
+    if request.method=="POST":
+        food_category_name = request.form["food_category_name"]
+        info=MenuCategory(food_category_name=food_category_name)
+        db.session.add(info)
+        db.session.commit()
+    fetch=MenuCategory.query.all()
+
+    return render_template('/admin/add_foodcat.html')
 
 @app.route('/orders')
 def order():
