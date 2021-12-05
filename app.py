@@ -122,6 +122,21 @@ def index():
     return render_template('')
 
 
+@app.route('/orders')
+def order():
+    return render_template('front_end/orders.html')
+
+
+@app.route('/checkout')
+def checkout():
+    return render_template('front_end/checkout.html')
+
+
+@app.route('/cart')
+def cart():
+    return render_template('front_end/cart.html')
+
+
 if __name__ == '__main__':
    app.run(debug=True)
 
