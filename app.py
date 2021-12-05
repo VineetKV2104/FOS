@@ -96,7 +96,7 @@ def Login():
         if request.form['uname'] == '' or request.form['pass'] == '':
             return redirect("/login")
         creds = Superlogin.query.filter_by(username = request.form['uname'], password = request.form['pass']).first()
-        print(creds)
+        
         if creds == None:
             return redirect("/login")
         else:
