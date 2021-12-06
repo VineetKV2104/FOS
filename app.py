@@ -31,9 +31,6 @@ def admin():
         
     return settings.render_template("admin/index.html")
 
-@app.route('/')
-def index():
-    return settings.render_template('')
 
 # ------------------------- Super Admin Authentication Section Ends -------------------- 
 
@@ -189,6 +186,17 @@ def checkout():
 @app.route('/cart')
 def cart():
     return settings.render_template('front_end/cart.html')
+
+
+# ------------------------- Home Page Settings Starts here -------------------- ]]
+@app.route('/', methods=["GET", "POST"])
+def index():
+    if settings.request.method== "POST":
+        addition= settings.request.form['food_item'] 
+        print(addition)
+    return settings.render_template('front_end/index.html')
+
+
 
 
 if __name__ == '__main__':
