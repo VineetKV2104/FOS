@@ -4,7 +4,6 @@ from settings import app, db
 
 import models
 
-
 @app.route('/login', methods=["GET","POST"])
 def Login():
     if settings.request.method=="POST":
@@ -32,9 +31,6 @@ def admin():
         
     return settings.render_template("admin/index.html")
 
-@app.route('/')
-def index():
-    return settings.render_template('')
 
 # ------------------------- Food Menu Category Section Starts -------------------- 
 @app.route('/foodcat', methods=["GET","POST"]) # End Point to Add & View the Menu Categories
@@ -100,6 +96,17 @@ def checkout():
 @app.route('/cart')
 def cart():
     return settings.render_template('front_end/cart.html')
+
+
+# ------------------------- Home Page Settings Starts here -------------------- ]]
+@app.route('/', methods=["GET", "POST"])
+def index():
+    if settings.request.method== "POST":
+        addition= settings.request.form['food_item'] 
+        print(addition)
+    return settings.render_template('front_end/index.html')
+
+
 
 
 if __name__ == '__main__':
