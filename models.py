@@ -24,6 +24,7 @@ class IngCategory(db.Model):
 
 class Ingredient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    ing_cat_id = db.Column(db.Integer)
     ing_name = db.Column(db.String)
 class RestActivity(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -28,7 +28,7 @@
   <link href="static/admin-assets/css/semi-dark.css" rel="stylesheet" />
   <link href="static/admin-assets/css/header-colors.css" rel="stylesheet" />
 
-  <title>Update Food Menu Category</title>
+  <title>Ingredient</title>
 </head>
 
 <body>
@@ -123,14 +123,23 @@
                 <div class="menu-title">Masters</div>
               </a>
               <ul>
-                <li> <a href="/foodcat"><i class="bi bi-circle"></i>Food Category</a></li>
-                <li> <a href="/ingcat"><i class="bi bi-circle"></i>Ingredient Category</a></li>
-                <li> <a href="/ing"><i class="bi bi-circle"></i>Ingredient</a></li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Food Item</a></li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Filters</a></li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Activity</a></li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Cuisine</a></li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Tax</a></li>
+                <li> <a href="/foodcat"><i class="bi bi-circle"></i>Food Category</a>
+                </li>
+                <li> <a href="/ingcat"><i class="bi bi-circle"></i>Ingredient Category</a>
+                </li>
+                <li> <a href="/ing"><i class="bi bi-circle"></i>Ingredient</a>
+                </li>
+                <li> <a href="#"><i class="bi bi-circle"></i>Food Item</a>
+                </li>
+                <li> <a href="#"><i class="bi bi-circle"></i>Filters</a>
+                </li>
+                <li> <a href="#"><i class="bi bi-circle"></i>Activity</a>
+                </li>
+                <li> <a href="#"><i class="bi bi-circle"></i>Cuisine</a>
+                </li>
+                <li> <a href="#"><i class="bi bi-circle"></i>Tax</a>
+                </li>
+               
               </ul>
             </li>
           </ul>
@@ -140,28 +149,77 @@
 
        <!--start content-->
           <main class="page-content">
+
             <div class="card">
               <div class="card-body">
                 <div class="border p-3 rounded">
-                <h6 class="mb-0 text-uppercase">Edit Food Category</h6>
+                  <h5 class="mb-0">Ingredient</h5>
                 <hr/>
-                {% for i in getinfo %}
-                <form class="row g-3" method="post" action="/foodcatupdater">
-                  <div class="col-8">
-                    <input type="hidden" name="id" value="{{i['id']}}">
-                    <input type="text" class="form-control" name="food_category_name" value="{{i['food_category_name']}}">
-                  </div>
+                <form class="row g-3" method="post">
                   <div class="col-3">
+                    <select class="form-select" aria-label="Default select example" name="ing_cat_id" required>
+                      <option value="#" active disabled>Select Category</option>
+                      {% for i in getinfo1 %}
+                      <option value="{{i['id']}}">{{i['ing_cat_name']}}</option>
+                      {% endfor %}
+                    </select>
+                  </div> 
+                  <div class="col-4">
+                    <input type="text" class="form-control" placeholder="ENTER INGREDIENT" name="ing_name">
+                  </div>
+                     <div class="col-3">
                     <div class="d-grid">
-                      <button type="submit" class="btn btn-dark submitForm">Update</button>
+                      <button type="submit" class="btn btn-dark submitForm">Create New</button>
                     </div>
                   </div>
                 </form>
-                {% endfor %}
               </div>
               </div>
-            </div>
 
+
+               <div class="card">
+                 <div class="card-body">
+            
+                   <div class="table-responsive mt-3">
+                     <table class="table align-middle">
+                       <thead class="table-secondary">
+                         <tr>
+                          <th>#</th>
+                          <th>Name</th>
+                          <th>Category</th>
+                          <th>Actions</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                        {% for i in getinfo %}
+                         <tr>
+                          <td>{{loop.index}}</td>
+                           <td>
+                             <p class="mb-0">{{i["ing_name"]}}</p>
+                           </td>
+                           
+                           <td>
+                            {% for r in getinfo1 %}
+                             {% if r.id == i.ing_cat_id %}
+                            <p class="mb-0">{{r["ing_cat_name"]}}</p>
+      
+                            {% endif %}
+                            {% endfor %}
+                          </td>
+                          
+                            <td>
+                             <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                              <a href="/ingupdate?id={{i['id']}}"><i class="bi bi-pencil-fill"></i></a>
+                               <a href="/ingdel/{{i['id']}}"><i class="bi bi-trash-fill"></i></a>
+                             </div>
+                           </td>
+                         </tr>
+                         {% endfor %}
+                       </tbody>
+                     </table>
+                   </div>
+                 </div>
+               </div>
 
 
 

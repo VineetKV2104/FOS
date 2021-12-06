@@ -127,6 +127,54 @@ def ingcatdel(id):
 
 # ------------------------- Ingredient Category Section Ends -------------------- 
 
+ #------------------------- Ingredient Section Starts -------------------- 
+
+@app.route('/ing', methods=["GET","POST"]) # End Point to Add & View the Ingredient
+def ing():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    if settings.request.method=="POST":
+        ing_cat_id = settings.request.form["ing_cat_id"]
+        ing_name = settings.request.form["ing_name"] 
+        info=models.Ingredient(ing_name=ing_name, ing_cat_id=ing_cat_id)
+        db.session.add(info)
+        db.session.commit()
+    fetch=models.Ingredient.query.all()
+    fetch_ing_cat=models.IngCategory.query.all()
+    return settings.render_template('admin/ing.html', getinfo=fetch, getinfo1=fetch_ing_cat)
+
+@app.route('/ingupdater', methods=["GET","POST"]) # End Point to Update Ingredient
+def ingupdater():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    if settings.request.method=="POST":
+        id = settings.request.form['id']
+        ing_cat_id = settings.request.form["ing_cat_id"]
+        ing_name = settings.request.form["ing_name"]
+        fetch=models.Ingredient.query.filter_by(id=id).first()
+        fetch.ing_cat_id=ing_cat_id
+        fetch.ing_name=ing_name
+        db.session.commit()
+        return settings.redirect("/ing")
+
+@app.route('/ingupdate', methods=["GET","POST"]) # End Point to Update Ingredient Continued
+def ingupdate():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    id = settings.request.args['id']
+    fetch=models.Ingredient.query.filter_by(id=id).all()
+    return settings.render_template("admin/update_ing.html",getinfo=fetch)
+
+@app.route('/ingdel/<int:id>', methods=["GET","POST"]) # End Point to Delete Ingredient
+def ingdel(id):
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    fetch=models.Ingredient.query.filter_by(id=id).first()
+    db.session.delete(fetch)
+    db.session.commit()
+    return settings.redirect("/ing")
+
+# ------------------------- Ingredient Section Ends -------------------- 
 
 @app.route('/orders')
 def order():
