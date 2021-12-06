@@ -149,16 +149,29 @@
 
        <!--start content-->
           <main class="page-content">
+
+            <div class="card">
+              <div class="card-body">
+                <div class="border p-3 rounded">
+                  <h5 class="mb-0">Food Category</h5>
+                <hr/>
+                <form class="row g-3" method="post">
+                  <div class="col-8">
+                    <input type="text" class="form-control" placeholder="ENTER FOOD CATEGORY" name="food_category_name">
+                  </div>
+                     <div class="col-3">
+                    <div class="d-grid">
+                      <button type="submit" class="btn btn-dark submitForm">Create New</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              </div>
+
+
                <div class="card">
                  <div class="card-body">
-                   <div class="d-flex align-items-center">
-                      <h5 class="mb-0">Food Category</h5>
-                       <form class="ms-auto position-relative">
-                         <a href="/addfoodcat">
-                        <button type="button" class="btn btn-dark">Add Food Category</button>
-                      </a>
-                       </form>
-                   </div>
+            
                    <div class="table-responsive mt-3">
                      <table class="table align-middle">
                        <thead class="table-secondary">
@@ -177,8 +190,8 @@
                            </td>
                             <td>
                              <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                               <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i class="bi bi-pencil-fill"></i></a>
-                               <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i class="bi bi-trash-fill"></i></a>
+                              <a href="/foodcatupdate?id={{i['id']}}"><i class="bi bi-pencil-fill"></i></a>
+                               <a href="/foodcatdel/{{i['id']}}"><i class="bi bi-trash-fill"></i></a>
                              </div>
                            </td>
                          </tr>

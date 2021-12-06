@@ -119,22 +119,49 @@ def admin():
 @app.route('/')
 def index():
     return render_template('')
-
-@app.route('/foodcat')
+# ------------------------- Food Menu Category Section Starts -------------------- 
+@app.route('/foodcat', methods=["GET","POST"]) # End Point to Add & View the Menu Categories
 def foodcat():
-    fetch=MenuCategory.query.all() 
-    return render_template('admin/foodcat.html', getinfo=fetch)
-
-@app.route('/addfoodcat', methods=["GET","POST"])
-def addfoodcat():
+    if not session.get("name"):
+            return redirect("/login")
     if request.method=="POST":
         food_category_name = request.form["food_category_name"]
         info=MenuCategory(food_category_name=food_category_name)
         db.session.add(info)
         db.session.commit()
-    fetch=MenuCategory.query.all()
+    fetch=MenuCategory.query.all() 
+    return render_template('admin/foodcat.html', getinfo=fetch)
 
-    return render_template('/admin/add_foodcat.html')
+@app.route('/foodcatupdater', methods=["GET","POST"]) # End Point to Update Menu Category
+def foodcatupdater():
+    if not session.get("name"):
+            return redirect("/login")
+    if request.method=="POST":
+        id = request.form['id']
+        food_category_name = request.form["food_category_name"]
+        fetch=MenuCategory.query.filter_by(id=id).first()
+        fetch.food_category_name=food_category_name
+        db.session.commit()
+        return redirect("/foodcat")
+
+@app.route('/foodcatupdate', methods=["GET","POST"]) # End Point to Update Menu Category Continued
+def foodcatupdate():
+    if not session.get("name"):
+            return redirect("/login")
+    id = request.args['id']
+    fetch=MenuCategory.query.filter_by(id=id).all()
+    return render_template("admin/update_foodcat.html",getinfo=fetch)
+
+@app.route('/foodcatdel/<int:id>', methods=["GET","POST"]) # End Point to Add the Menu Categories
+def foodcatdel(id):
+    if not session.get("name"):
+            return redirect("/login")
+    fetch=MenuCategory.query.filter_by(id=id).first()
+    db.session.delete(fetch)
+    db.session.commit()
+    return redirect("/foodcat")
+
+# ------------------------- Food Menu Category Section Ends -------------------- 
 
 @app.route('/orders')
 def order():

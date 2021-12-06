@@ -123,23 +123,14 @@
                 <div class="menu-title">Masters</div>
               </a>
               <ul>
-                <li> <a href="/foodcat"><i class="bi bi-circle"></i>Food Category</a>
-                </li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Ingredient Category</a>
-                </li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Ingredient</a>
-                </li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Food Item</a>
-                </li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Filters</a>
-                </li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Activity</a>
-                </li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Cuisine</a>
-                </li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Tax</a>
-                </li>
-               
+                <li> <a href="/foodcat"><i class="bi bi-circle"></i>Food Category</a></li>
+                <li> <a href="#"><i class="bi bi-circle"></i>Ingredient Category</a></li>
+                <li> <a href="#"><i class="bi bi-circle"></i>Ingredient</a></li>
+                <li> <a href="#"><i class="bi bi-circle"></i>Food Item</a></li>
+                <li> <a href="#"><i class="bi bi-circle"></i>Filters</a></li>
+                <li> <a href="#"><i class="bi bi-circle"></i>Activity</a></li>
+                <li> <a href="#"><i class="bi bi-circle"></i>Cuisine</a></li>
+                <li> <a href="#"><i class="bi bi-circle"></i>Tax</a></li>
               </ul>
             </li>
           </ul>
@@ -152,19 +143,21 @@
             <div class="card">
               <div class="card-body">
                 <div class="border p-3 rounded">
-                <h6 class="mb-0 text-uppercase">Add Food Category</h6>
+                <h6 class="mb-0 text-uppercase">Edit Food Category</h6>
                 <hr/>
-                <form class="row g-3" method="post">
-                  <div class="col-12">
-                    <label class="form-label">Food Category</label>
-                    <input type="text" class="form-control" name="food_category_name">
+                {% for i in getinfo %}
+                <form class="row g-3" method="post" action="/foodcatupdater">
+                  <div class="col-8">
+                    <input type="hidden" name="id" value="{{i['id']}}">
+                    <input type="text" class="form-control" name="food_category_name" value="{{i['food_category_name']}}">
                   </div>
-                     <div class="col-12">
+                  <div class="col-3">
                     <div class="d-grid">
-                      <button type="submit" class="gm_btn submitForm" data-form-type="inquiry">Add</button>
+                      <button type="submit" class="btn btn-dark submitForm">Update</button>
                     </div>
                   </div>
                 </form>
+                {% endfor %}
               </div>
               </div>
             </div>
