@@ -1,9 +1,9 @@
 import settings
-
 from settings import app, db
-
 import models
 
+
+# ------------------------- Super Admin Authentication Section Starts -------------------- 
 @app.route('/login', methods=["GET","POST"])
 def Login():
     if settings.request.method=="POST":
@@ -31,6 +31,8 @@ def admin():
         
     return settings.render_template("admin/index.html")
 
+
+# ------------------------- Super Admin Authentication Section Ends -------------------- 
 
 # ------------------------- Food Menu Category Section Starts -------------------- 
 @app.route('/foodcat', methods=["GET","POST"]) # End Point to Add & View the Menu Categories
@@ -74,11 +76,51 @@ def foodcatdel(id):
     db.session.commit()
     return settings.redirect("/foodcat")
 
-# ------------------------- Food Menu Category Section Ends -------------------- 
+# ------------------------- Food Menu Category Section Ends -----------------------
+
 
 # ------------------------- Ingredient Category Section Starts -------------------- 
 
+@app.route('/ingcat', methods=["GET","POST"]) # End Point to Add & View the Menu Categories
+def ingcat():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    if settings.request.method=="POST":
+        ing_cat_name = settings.request.form["ing_cat_name"]
+        info=models.IngCategory(ing_cat_name=ing_cat_name)
+        db.session.add(info)
+        db.session.commit()
+    fetch=models.IngCategory.query.all() 
+    return settings.render_template('admin/ingcat.html', getinfo=fetch)
 
+@app.route('/ingcatupdater', methods=["GET","POST"]) # End Point to Update Menu Category
+def ingcatupdater():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    if settings.request.method=="POST":
+        id = settings.request.form['id']
+        ing_cat_name = settings.request.form["ing_cat_name"]
+        fetch=models.IngCategory.query.filter_by(id=id).first()
+        fetch.ing_cat_name=ing_cat_name
+        db.session.commit()
+        return settings.redirect("/ingcat")
+
+@app.route('/ingcatupdate', methods=["GET","POST"]) # End Point to Update Menu Category Continued
+def ingcatupdate():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    id = settings.request.args['id']
+    fetch=models.IngCategory.query.filter_by(id=id).all()
+    return settings.render_template("admin/update_ingcat.html",getinfo=fetch)
+
+@app.route('/ingcatdel/<int:id>', methods=["GET","POST"]) # End Point to Add the Menu Categories
+def ingcatdel(id):
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    fetch=models.IngCategory.query.filter_by(id=id).first()
+    db.session.delete(fetch)
+    db.session.commit()
+    return settings.redirect("/ingcat")
 
 # ------------------------- Ingredient Category Section Ends -------------------- 
 
