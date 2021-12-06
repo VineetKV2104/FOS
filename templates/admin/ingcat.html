@@ -28,7 +28,7 @@
   <link href="static/admin-assets/css/semi-dark.css" rel="stylesheet" />
   <link href="static/admin-assets/css/header-colors.css" rel="stylesheet" />
 
-  <title>Onedash - Bootstrap 5 Admin Template</title>
+  <title>Ingredient Category</title>
 </head>
 
 <body>
@@ -125,7 +125,7 @@
               <ul>
                 <li> <a href="/foodcat"><i class="bi bi-circle"></i>Food Category</a>
                 </li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Ingredient Category</a>
+                <li> <a href="/ingcat"><i class="bi bi-circle"></i>Ingredient Category</a>
                 </li>
                 <li> <a href="#"><i class="bi bi-circle"></i>Ingredient</a>
                 </li>
@@ -153,11 +153,11 @@
             <div class="card">
               <div class="card-body">
                 <div class="border p-3 rounded">
-                  <h5 class="mb-0">Food Category</h5>
+                  <h5 class="mb-0">Ingredient Category</h5>
                 <hr/>
                 <form class="row g-3" method="post">
                   <div class="col-8">
-                    <input type="text" class="form-control" placeholder="ENTER FOOD CATEGORY" name="food_category_name">
+                    <input type="text" class="form-control" placeholder="ENTER INGREDIENT CATEGORY" name="ing_cat_name">
                   </div>
                      <div class="col-3">
                     <div class="d-grid">
@@ -186,12 +186,12 @@
                          <tr>
                           <td>{{loop.index}}</td>
                            <td>
-                             <p class="mb-0">{{i["food_category_name"]}}</p>
+                             <p class="mb-0">{{i["ing_cat_name"]}}</p>
                            </td>
                             <td>
                              <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                              <a href="/foodcatupdate?id={{i['id']}}"><i class="bi bi-pencil-fill"></i></a>
-                               <a href="/foodcatdel/{{i['id']}}"><i class="bi bi-trash-fill"></i></a>
+                              <a href="/ingcatupdate?id={{i['id']}}"><i class="bi bi-pencil-fill"></i></a>
+                               <a href="/ingcatdel/{{i['id']}}"><i class="bi bi-trash-fill"></i></a>
                              </div>
                            </td>
                          </tr>

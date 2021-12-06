@@ -28,7 +28,7 @@
   <link href="static/admin-assets/css/semi-dark.css" rel="stylesheet" />
   <link href="static/admin-assets/css/header-colors.css" rel="stylesheet" />
 
-  <title>Onedash - Bootstrap 5 Admin Template</title>
+  <title>Update Ingredient Category</title>
 </head>
 
 <body>
@@ -124,7 +124,7 @@
               </a>
               <ul>
                 <li> <a href="/foodcat"><i class="bi bi-circle"></i>Food Category</a></li>
-                <li> <a href="#"><i class="bi bi-circle"></i>Ingredient Category</a></li>
+                <li> <a href="/ingcat"><i class="bi bi-circle"></i>Ingredient Category</a></li>
                 <li> <a href="#"><i class="bi bi-circle"></i>Ingredient</a></li>
                 <li> <a href="#"><i class="bi bi-circle"></i>Food Item</a></li>
                 <li> <a href="#"><i class="bi bi-circle"></i>Filters</a></li>
@@ -143,13 +143,13 @@
             <div class="card">
               <div class="card-body">
                 <div class="border p-3 rounded">
-                <h6 class="mb-0 text-uppercase">Edit Food Category</h6>
+                <h6 class="mb-0 text-uppercase">Edit Ingredient Category</h6>
                 <hr/>
                 {% for i in getinfo %}
-                <form class="row g-3" method="post" action="/foodcatupdater">
+                <form class="row g-3" method="post" action="/ingcatupdater">
                   <div class="col-8">
                     <input type="hidden" name="id" value="{{i['id']}}">
-                    <input type="text" class="form-control" name="food_category_name" value="{{i['food_category_name']}}">
+                    <input type="text" class="form-control" name="ing_cat_name" value="{{i['ing_cat_name']}}">
                   </div>
                   <div class="col-3">
                     <div class="d-grid">
