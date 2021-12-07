@@ -175,13 +175,13 @@ def ingdel(id):
 # ------------------------- Ingredient Section Ends -------------------- 
 
 # ------------------------- Fooditems Section Starts -------------------- 
-@app.route('/fooditems', methods=["GET","POST"]) # End Point to Add & View the Filters
+@app.route('/fooditem', methods=["GET","POST"]) # End Point to Add & View the Filters
 def fooditems():
     if not settings.session.get("name"):
         return settings.redirect("/login")
     if settings.request.method=="POST":
         pass
-    ingredientdata=models.Ingredientdata.query.all()
+    ingredientdata=models.Ingredient.query.all()
     fooditemdata=models.FoodMenuItem.query.all()
     return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata)
 

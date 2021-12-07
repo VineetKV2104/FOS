@@ -150,8 +150,8 @@
                   <div class="col-3">
                     <select class="form-select" aria-label="Default select example" name="ing_cat_id" required>
                       <option value="#" active disabled>Select Category</option>
-                      {% for i in getinfo1 %}
-                      <option value="{{i['id']}}">{{i['ing_cat_name']}}</option>
+                      {% for i in ingredientdata %}
+                      <option value="{{i['id']}}">{{i['ing_name']}}</option>
                       {% endfor %}
                     </select>
                   </div> 
@@ -182,17 +182,17 @@
                          </tr>
                        </thead>
                        <tbody>
-                        {% for i in getinfo %}
+                        {% for fooditem in fooditemdata %}
                          <tr>
                           <td>{{loop.index}}</td>
                            <td>
-                             <p class="mb-0">{{i["ing_name"]}}</p>
+                             <p class="mb-0">{{fooditem.food_item_name}}</p>
                            </td>
                            
                            <td>
-                            {% for r in getinfo1 %}
-                             {% if r.id == i.ing_cat_id %}
-                            <p class="mb-0">{{r["ing_cat_name"]}}</p>
+                            {% for ingredient in ingredientdata %}
+                             {% if fooditem.ingredients == ingredient.ing_cat_id %}
+                            <p class="mb-0">{{ingredient.ing_name}}</p>
       
                             {% endif %}
                             {% endfor %}
