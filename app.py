@@ -180,7 +180,9 @@ def fooditems():
     if not settings.session.get("name"):
         return settings.redirect("/login")
     if settings.request.method=="POST":
-        pass
+        ing_id=settings.request.form["ing_id"]
+        fooditemname=settings.request.form["fooditemname"]
+        addfooditem=models.FoodMenuItem()
     ingredientdata=models.Ingredient.query.all()
     fooditemdata=models.FoodMenuItem.query.all()
     return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata)
