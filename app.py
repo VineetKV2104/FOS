@@ -309,7 +309,7 @@ def cusindel(id):
     db.session.commit()
     return settings.redirect("/cusin")
 
-# ------------------------- Tax Section Ends -------------------- 
+# ------------------------- Cuisine Section Ends -------------------- 
 @app.route('/orders')
 def order():
     return settings.render_template('front_end/orders.html')
