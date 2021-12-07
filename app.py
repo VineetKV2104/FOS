@@ -173,6 +173,51 @@ def ingdel(id):
 
 # ------------------------- Ingredient Section Ends -------------------- 
 
+# -------------------------  Filters Section Starts -------------------- 
+
+@app.route('/filters', methods=["GET","POST"]) # End Point to Add & View the Filters
+def filters():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    if settings.request.method=="POST":
+        filter_name = settings.request.form["filter_name"]
+        info=models.FoodFilters(filter_name=filter_name)
+        db.session.add(info)
+        db.session.commit()
+    fetch=models.FoodFilters.query.all() 
+    return settings.render_template('admin/filters.html', getinfo=fetch)
+
+@app.route('/filtersupdater', methods=["GET","POST"]) # End Point to Update Filters
+def filtersupdater():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    if settings.request.method=="POST":
+        id = settings.request.form['id']
+        filter_name = settings.request.form["filter_name"]
+        fetch=models.FoodFilters.query.filter_by(id=id).first()
+        fetch.filter_name=filter_name
+        db.session.commit()
+        return settings.redirect("/filters")
+
+@app.route('/filtersupdate', methods=["GET","POST"]) # End Point to Update Filters Continued
+def filtersupdate():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    id = settings.request.args['id']
+    fetch=models.FoodFilters.query.filter_by(id=id).all()
+    return settings.render_template("admin/update_filters.html",getinfo=fetch)
+
+@app.route('/filtersdel/<int:id>', methods=["GET","POST"]) # End Point to Del the Filters
+def filtersdel(id):
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    fetch=models.FoodFilters.query.filter_by(id=id).first()
+    db.session.delete(fetch)
+    db.session.commit()
+    return settings.redirect("/filters")
+
+# ------------------------- Filters Section Ends -------------------- 
+
 @app.route('/orders')
 def order():
     return settings.render_template('front_end/orders.html')
