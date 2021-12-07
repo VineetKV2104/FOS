@@ -266,6 +266,50 @@ def taxdel(id):
 
 # ------------------------- Tax Section Ends -------------------- 
 
+# -------------------------  Cuisine Section Starts -------------------- 
+
+@app.route('/cusin', methods=["GET","POST"]) # End Point to Add & View the Cuisine
+def cusin():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    if settings.request.method=="POST":
+        cuisine_name = settings.request.form["cuisine_name"]
+        info=models.Cuisine(cuisine_name=cuisine_name)
+        db.session.add(info)
+        db.session.commit()
+    fetch=models.Cuisine.query.all() 
+    return settings.render_template('admin/cusin.html', getinfo=fetch)
+
+@app.route('/cusinupdater', methods=["GET","POST"]) # End Point to Update Tax
+def cusinupdater():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    if settings.request.method=="POST":
+        id = settings.request.form['id']
+        cuisine_name = settings.request.form["cuisine_name"]
+        fetch=models.Cuisine.query.filter_by(id=id).first()
+        fetch.cuisine_name=cuisine_name
+        db.session.commit()
+        return settings.redirect("/cusin")
+
+@app.route('/cusinupdate', methods=["GET","POST"]) # End Point to Update Tax Continued
+def cusinupdate():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    id = settings.request.args['id']
+    fetch=models.Cuisine.query.filter_by(id=id).all()
+    return settings.render_template("admin/update_cusin.html",getinfo=fetch)
+
+@app.route('/cusindel/<int:id>', methods=["GET","POST"]) # End Point to Del the Tax
+def cusindel(id):
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    fetch=models.Cuisine.query.filter_by(id=id).first()
+    db.session.delete(fetch)
+    db.session.commit()
+    return settings.redirect("/cusin")
+
+# ------------------------- Tax Section Ends -------------------- 
 @app.route('/orders')
 def order():
     return settings.render_template('front_end/orders.html')
