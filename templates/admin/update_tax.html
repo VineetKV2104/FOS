@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="static/admin-assets/images/favicon-32x32.png" type="image/png" />
+  <!--plugins-->
+  <link href="static/admin-assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+  <link href="static/admin-assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+  <link href="static/admin-assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+  <!-- Bootstrap CSS -->
+  <link href="static/admin-assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="static/admin-assets/css/bootstrap-extended.css" rel="stylesheet" />
+  <link href="static/admin-assets/css/style.css" rel="stylesheet" />
+  <link href="static/admin-assets/css/icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+  <!-- loader-->
+	<link href="static/admin-assets/css/pace.min.css" rel="stylesheet" />
+
+
+  <!--Theme Styles-->
+  <link href="static/admin-assets/css/dark-theme.css" rel="stylesheet" />
+  <link href="static/admin-assets/css/light-theme.css" rel="stylesheet" />
+  <link href="static/admin-assets/css/semi-dark.css" rel="stylesheet" />
+  <link href="static/admin-assets/css/header-colors.css" rel="stylesheet" />
+
+  <title>Update Tax</title>
+</head>
+
+<body>
+
+
+  <!--start wrapper-->
+  <div class="wrapper">
+      <!--start top header-->
+      <header class="top-header">        
+        <nav class="navbar navbar-expand gap-3">
+          <div class="mobile-toggle-icon fs-3">
+              <i class="bi bi-list"></i>
+            </div>
+
+            <div class="top-navbar-right ms-auto">
+              <ul class="navbar-nav align-items-center">
+              <li class="nav-item dropdown dropdown-user-setting">
+                <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                  <div class="user-setting d-flex align-items-center">
+                    <img src="static/admin-assets/images/avatars/rids.jpg" class="user-img" alt="">
+                  </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                     <a class="dropdown-item" href="#">
+                       <div class="d-flex align-items-center">
+                          <img src="static/admin-assets/images/avatars/rids.jpg" alt="" class="rounded-circle" width="54" height="54">
+                          <div class="ms-3">
+                            <h6 class="mb-0 dropdown-user-name">Ridhish Thakor</h6>
+                            <small class="mb-0 dropdown-user-designation text-secondary">Director</small>
+                          </div>
+                       </div>
+                     </a>
+                   </li>
+                   <li><hr class="dropdown-divider"></li>
+                   <li>
+                      <a class="dropdown-item" href="pages-user-profile.html">
+                         <div class="d-flex align-items-center">
+                           <div class=""><i class="bi bi-person-fill"></i></div>
+                           <div class="ms-3"><span>Profile</span></div>
+                         </div>
+                       </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                         <div class="d-flex align-items-center">
+                           <div class=""><i class="bi bi-gear-fill"></i></div>
+                           <div class="ms-3"><span>Setting</span></div>
+                         </div>
+                       </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                      <a class="dropdown-item" href="/logout">
+                         <div class="d-flex align-items-center">
+                           <div class=""><i class="bi bi-lock-fill"></i></div>
+                           <div class="ms-3"><span>Logout</span></div>
+                         </div>
+                       </a>
+                    </li>
+                </ul>
+              </li>
+
+              </ul>
+              </div>
+        </nav>
+      </header>
+       <!--end top header-->
+
+        <!--start sidebar -->
+        <aside class="sidebar-wrapper" data-simplebar="true">
+          <div class="sidebar-header">
+            <div>
+              <h4 class="logo-text">FOS ADMIN</h4>
+            </div>
+            <div class="toggle-icon ms-auto"> <i class="bi bi-list"></i>
+            </div>
+          </div>
+          <!--navigation-->
+          <ul class="metismenu" id="menu">
+            <li>
+              <a href="javascript:;">
+                <div class="parent-icon"><i class="bi bi-house-fill"></i>
+                </div>
+                <div class="menu-title">Dashboard</div>
+              </a>  
+            </li>
+            <li>
+              <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bi bi-grid-fill"></i>
+                </div>
+                <div class="menu-title">Masters</div>
+              </a>
+              <ul>
+                <li> <a href="/foodcat"><i class="bi bi-circle"></i>Food Category</a></li>
+                <li> <a href="/ingcat"><i class="bi bi-circle"></i>Ingredient Category</a></li>
+                <li> <a href="/ing"><i class="bi bi-circle"></i>Ingredient</a></li>
+                <li> <a href="/fooditem"><i class="bi bi-circle"></i>Food Item</a></li>
+                <li> <a href="/filters"><i class="bi bi-circle"></i>Filters</a></li>
+                <li> <a href="/cusin"><i class="bi bi-circle"></i>Cuisine</a></li>
+                <li> <a href="/tax"><i class="bi bi-circle"></i>Tax</a></li>
+               </ul>
+            </li>
+          </ul>
+          <!--end navigation-->
+       </aside>
+       <!--end sidebar -->
+
+       <!--start content-->
+          <main class="page-content">
+            <div class="card">
+              <div class="card-body">
+                <div class="border p-3 rounded">
+                <h6 class="mb-0 text-uppercase">Edit Tax</h6>
+                <hr/>
+                {% for i in getinfo %}
+                <form class="row g-3" method="post" action="/taxupdater">
+                  <div class="col-4">
+                    <input type="hidden" name="id" value="{{i['id']}}">
+                    <input type="text" class="form-control" name="tax_type" value="{{i['tax_type']}}">
+                  </div>
+                  <div class="col-4">
+                    <input type="text" class="form-control" name="tax_value" value="{{i['tax_value']}}">
+                  </div>
+                  <div class="col-3">
+                    <div class="d-grid">
+                      <button type="submit" class="btn btn-dark submitForm">Update</button>
+                    </div>
+                  </div>
+                </form>
+                {% endfor %}
+              </div>
+              </div>
+            </div>
+
+
+
+
+               
+          </main>
+       <!--end page main-->
+
+
+       <!--start overlay-->
+        <div class="overlay nav-toggle-icon"></div>
+       <!--end overlay-->
+
+        <!--Start Back To Top Button-->
+        <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+        <!--End Back To Top Button-->
+
+  </div>
+  <!--end wrapper-->
+
+
+  <!-- Bootstrap bundle JS -->
+  <script src="static/admin-assets/js/bootstrap.bundle.min.js"></script>
+  <!--plugins-->
+  <script src="static/admin-assets/js/jquery.min.js"></script>
+  <script src="static/admin-assets/plugins/simplebar/js/simplebar.min.js"></script>
+  <script src="static/admin-assets/plugins/metismenu/js/metisMenu.min.js"></script>
+  <script src="static/admin-assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+  <script src="static/admin-assets/js/pace.min.js"></script>
+  <!--app-->
+  <script src="static/admin-assets/js/app.js"></script>
+  
+
+</body>
+
+</html>

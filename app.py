@@ -218,6 +218,54 @@ def filtersdel(id):
 
 # ------------------------- Filters Section Ends -------------------- 
 
+# -------------------------  Tax Section Starts -------------------- 
+
+@app.route('/tax', methods=["GET","POST"]) # End Point to Add & View the Tax
+def tax():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    if settings.request.method=="POST":
+        tax_type = settings.request.form["tax_type"]
+        tax_value = settings.request.form["tax_value"]
+        info=models.Tax(tax_type=tax_type,tax_value=tax_value)
+        db.session.add(info)
+        db.session.commit()
+    fetch=models.Tax.query.all() 
+    return settings.render_template('admin/tax.html', getinfo=fetch)
+
+@app.route('/taxupdater', methods=["GET","POST"]) # End Point to Update Tax
+def taxupdater():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    if settings.request.method=="POST":
+        id = settings.request.form['id']
+        tax_type = settings.request.form["tax_type"]
+        tax_value = settings.request.form["tax_value"]
+        fetch=models.Tax.query.filter_by(id=id).first()
+        fetch.tax_type=tax_type
+        fetch.tax_value=tax_value
+        db.session.commit()
+        return settings.redirect("/tax")
+
+@app.route('/taxupdate', methods=["GET","POST"]) # End Point to Update Tax Continued
+def taxupdate():
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    id = settings.request.args['id']
+    fetch=models.Tax.query.filter_by(id=id).all()
+    return settings.render_template("admin/update_tax.html",getinfo=fetch)
+
+@app.route('/taxdel/<int:id>', methods=["GET","POST"]) # End Point to Del the Tax
+def taxdel(id):
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    fetch=models.Tax.query.filter_by(id=id).first()
+    db.session.delete(fetch)
+    db.session.commit()
+    return settings.redirect("/tax")
+
+# ------------------------- Tax Section Ends -------------------- 
+
 @app.route('/orders')
 def order():
     return settings.render_template('front_end/orders.html')
