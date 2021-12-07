@@ -241,7 +241,7 @@
                             <select
                               class="form-select"
                               aria-label="Default select example"
-                              name="ing_cat_id"
+                              name="ing_id"
                               required
                             >
                               <option value="#" active disabled>
@@ -283,17 +283,18 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button type="submit" class="btn btn-dark">Add</button>
+                      </div>
                     </form>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                      <button type="submit" class="btn btn-dark">Add</button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -334,10 +335,10 @@
                           fs-6
                         "
                       >
-                        <a href="/ingupdate?id={{i['id']}}"
+                        <a href="/fooditemupdate?id={{fooditem['id']}}"
                           ><i class="bi bi-pencil-fill"></i
                         ></a>
-                        <a href="/ingdel/{{i['id']}}"
+                        <a href="/fooditemdel/{{fooditem['id']}}"
                           ><i class="bi bi-trash-fill"></i
                         ></a>
                       </div>

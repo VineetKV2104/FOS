@@ -1,4 +1,5 @@
 from flask.templating import render_template
+from werkzeug.utils import secure_filename
 import settings
 from settings import app, db
 import models
@@ -180,9 +181,20 @@ def fooditems():
     if not settings.session.get("name"):
         return settings.redirect("/login")
     if settings.request.method=="POST":
+        fooditemcount=models.FoodMenuItem.query.count()
         ing_id=settings.request.form["ing_id"]
         fooditemname=settings.request.form["fooditemname"]
-        addfooditem=models.FoodMenuItem()
+        fooditemrate=settings.request.form["fooditemrate"]
+        fooditemimg=settings.request.files["fooditemimg"]
+        fooditemimg.seek(0, settings.os.SEEK_END)
+        if fooditemimg.tell()==0:
+            pass
+        fooditemimg.seek(0)
+        fname='static/images/fooditem/'+str(fooditemcount+1)+'_'+secure_filename(fooditemimg.filename)
+        fooditemimg.save(fname)
+        addfooditem=models.FoodMenuItem(food_item_name=fooditemname,food_item_rate=fooditemrate,ingredients=ing_id,food_item_img=fname)
+        db.session.add(addfooditem)
+        db.session.commit()
     ingredientdata=models.Ingredient.query.all()
     fooditemdata=models.FoodMenuItem.query.all()
     return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata)
