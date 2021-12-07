@@ -182,7 +182,8 @@ def fooditems():
     if settings.request.method=="POST":
         pass
     ingredientdata=models.Ingredientdata.query.all()
-    return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata)
+    fooditemdata=models.FoodMenuItem.query.all()
+    return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata)
 
 # ------------------------- Fooditems Section Ends -------------------- 
 
