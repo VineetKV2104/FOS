@@ -162,35 +162,16 @@
 	<table>
 		
 		  <tr>
+			{% for filter in fetch%}
 			<td>
 				<div class="switch">
-					<label>Non-Veg:</label>
+					<label>{{filter.filter_name}}:</label>
 					<input type="checkbox" hidden="hidden" id="enable1">
 					<label class="switch__label" for="enable1"></label>
 				</div>
 			</td>
-			<td>
-				<div class="switch">
-					<label>Egg:</label>
-					<input type="checkbox" hidden="hidden" id="egg">
-					<label class="switch__label" for="egg"></label>
-				</div>
+			{% endfor %}
 			
-			</td>
-			<td>
-				<div class="switch">
-					<label>Veg:</label>
-					<input type="checkbox" hidden="hidden" id="veg">
-					<label class="switch__label" for="veg"></label>
-				</div>
-			</td>
-			<td>
-				<div class="switch">
-					<label>Jain:</label>
-					<input type="checkbox" hidden="hidden" id="jain">
-					<label class="switch__label" for="jain"></label>
-				</div>
-			</td>
 		  </tr>
 	</table>  
 	

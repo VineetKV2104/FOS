@@ -1,3 +1,4 @@
+from flask.templating import render_template
 import settings
 from settings import app, db
 import models
@@ -331,10 +332,8 @@ def index():
     if settings.request.method== "POST":
         addition= settings.request.form['food_item'] 
         print(addition)
-    return settings.render_template('front_end/index.html')
-
-
-
+    fetch=models.FoodFilters.query.all() 
+    return settings.render_template('front_end/index.html',fetch=fetch)
 
 if __name__ == '__main__':
    app.run(debug=True)
