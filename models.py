@@ -8,7 +8,7 @@ class Superlogin(db.Model):
 class Tax(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tax_type = db.Column(db.String)
-    tax_value = db.Column(db.String)
+    tax_value = db.Column(db.Integer)
 
 class Cuisine(db.Model):
     id = db.Column(db.Integer, primary_key=True)

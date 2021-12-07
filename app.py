@@ -124,7 +124,7 @@ def ingcatdel(id):
 
 # ------------------------- Ingredient Category Section Ends -------------------- 
 
- #------------------------- Ingredient Section Starts -------------------- 
+#------------------------- Ingredient Section Starts ---------------------------- 
 
 @app.route('/ing', methods=["GET","POST"]) # End Point to Add & View the Ingredient
 def ing():
