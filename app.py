@@ -186,13 +186,16 @@ def fooditems():
         fooditemname=settings.request.form["fooditemname"]
         fooditemrate=settings.request.form["fooditemrate"]
         fooditemimg=settings.request.files["fooditemimg"]
+        fooditemcat=settings.request.form["fooditemcat"]
+        fooditemfilter=settings.request.form["fooditemfilter"]
+        fooditemcuisine=settings.request.form["footitemcuisine"]
         fooditemimg.seek(0, settings.os.SEEK_END)
         if fooditemimg.tell()==0:
             pass
         fooditemimg.seek(0)
         fname='static/images/fooditem/'+str(fooditemcount+1)+'_'+secure_filename(fooditemimg.filename)
         fooditemimg.save(fname)
-        addfooditem=models.FoodMenuItem(food_item_name=fooditemname,food_item_rate=fooditemrate,ingredients=ing_id,food_item_img=fname)
+        addfooditem=models.FoodMenuItem(food_item_name=fooditemname,food_item_rate=fooditemrate,ingredients=ing_id,food_item_img=fname, food_item_cat=fooditemcat, food_item_filter=fooditemfilter, food_item_cuisine=fooditemcuisine)
         db.session.add(addfooditem)
         db.session.commit()
     ingredientdata=models.Ingredient.query.all()
