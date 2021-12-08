@@ -53,9 +53,11 @@ class FoodMenuItem(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     food_item_name=db.Column(db.String)
     food_item_rate=db.Column(db.Integer)
-    ingredients=db.Column(db.String)
-    food_item_img=db.Column(db.String)
-
+    ingredients=db.Column(db.Integer)
+    food_item_img=db.Column(db.Integer)
+    food_item_cat=db.Column(db.Integer)
+    food_item_filter=db.Column(db.Integer)
+    food_item_cuisine=db.Column(db.Integer)
 class OrderDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_number = db.Column(db.String)
