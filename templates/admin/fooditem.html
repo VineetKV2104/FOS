@@ -48,6 +48,8 @@
     <link href="static/admin-assets/css/semi-dark.css" rel="stylesheet" />
     <link href="static/admin-assets/css/header-colors.css" rel="stylesheet" />
 
+  
+
     <title>Ingredient</title>
   </head>
 
@@ -238,14 +240,14 @@
                             <select
                               class="form-select"
                               aria-label="Default select example"
-                              name="ing_id"
+                              name="fooditemcat"
                               required>
                               <option value="#" active disabled>
                                 Select Category
                               </option>
                               {% for i in ingredientdata %}
                               <option value="{{i['id']}}">
-                                {{i['ing_name']}}
+                                {{i['food_category_name']}}
                               </option>
                               {% endfor %}
                             </select>
@@ -279,32 +281,41 @@
                           </div>
                         </div>
                       </div>
+                    
                       <div class="mb-3">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="exampleFormControlInput1"
-                          name="fooditemcat"
-                          placeholder="Enter Food Item Category"
-                        />
+                        
+                        <table cellspacing="10" cellpadding="10">
+		
+                          <tr>
+                          {% for filter in filterfetch %}
+                          <td>
+                            <div class="switch">
+                              <label>{{filter.filter_name}}:</label>
+                              <input type="checkbox" hidden="hidden" id="{{filter.id}}" name="fooditemfilter">
+                              <label class="switch__label" for="{{filter.id}}"></label>
+                            </div>
+                          </td>
+                          {% endfor %}
+                          </tr>
+                      </table>  
+                      
+                        
                       </div>
                       <div class="mb-3">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="exampleFormControlInput1"
-                          name="fooditemfilter"
-                          placeholder="Enter Food Item Filters"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="exampleFormControlInput1"
-                          name="fooditemcuisine"
-                          placeholder="Enter Food Item Cuisine"
-                        />
+                        <select
+                              class="form-select"
+                              aria-label="Default select example"
+                              name="fooditemcuisine"
+                              required>
+                              <option value="#" active disabled>
+                                Select Cuisine
+                              </option>
+                              {% for i in cuisinefetch %}
+                              <option value="{{i['id']}}">
+                                {{i['cuisine_name']}}
+                              </option>
+                              {% endfor %}
+                            </select>
                       </div>
 
 

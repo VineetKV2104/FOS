@@ -1,4 +1,5 @@
 from flask.templating import render_template
+from flask_sqlalchemy import model
 from werkzeug.utils import secure_filename
 import settings
 from settings import app, db
@@ -182,25 +183,26 @@ def fooditems():
         return settings.redirect("/login")
     if settings.request.method=="POST":
         fooditemcount=models.FoodMenuItem.query.count()
-        ing_id=settings.request.form["ing_id"]
         fooditemname=settings.request.form["fooditemname"]
         fooditemrate=settings.request.form["fooditemrate"]
         fooditemimg=settings.request.files["fooditemimg"]
         fooditemcat=settings.request.form["fooditemcat"]
         fooditemfilter=settings.request.form["fooditemfilter"]
-        fooditemcuisine=settings.request.form["footitemcuisine"]
+        fooditemcuisine=settings.request.form["fooditemcuisine"]
         fooditemimg.seek(0, settings.os.SEEK_END)
         if fooditemimg.tell()==0:
             pass
         fooditemimg.seek(0)
         fname='static/images/fooditem/'+str(fooditemcount+1)+'_'+secure_filename(fooditemimg.filename)
         fooditemimg.save(fname)
-        addfooditem=models.FoodMenuItem(food_item_name=fooditemname, food_item_rate=fooditemrate, ingredients=ing_id, food_item_img=fname, food_item_cat=fooditemcat, food_item_filter=fooditemfilter, food_item_cuisine=fooditemcuisine)
+        addfooditem=models.FoodMenuItem(food_item_name=fooditemname, food_item_rate=fooditemrate,food_item_img=fname, food_item_cat=fooditemcat, food_item_filter=fooditemfilter, food_item_cuisine=fooditemcuisine)
         db.session.add(addfooditem)
         db.session.commit()
-    ingredientdata=models.Ingredient.query.all()
+    ingredientdata=models.MenuCategory.query.all()
     fooditemdata=models.FoodMenuItem.query.all()
-    return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata)
+    filterfetch=models.FoodFilters.query.all()
+    cuisinefetch=models.Cuisine.query.all()
+    return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata, filterfetch=filterfetch, cuisinefetch=cuisinefetch)
 
 # ------------------------- Fooditems Section Ends -------------------- 
 
