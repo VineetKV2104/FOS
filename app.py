@@ -204,6 +204,14 @@ def fooditems():
     cuisinefetch=models.Cuisine.query.all()
     return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata, filterfetch=filterfetch, cuisinefetch=cuisinefetch)
 
+@app.route('/foodmenuitemdel/<int:id>', methods=["GET","POST"]) # End Point to Delete Ingredient
+def foodmenuitemdel(id):
+    if not settings.session.get("name"):
+            return settings.redirect("/login")
+    fetch=models.FoodMenuItem.query.filter_by(id=id).first()
+    db.session.delete(fetch)
+    db.session.commit()
+    return settings.redirect("/fooditem")
 # ------------------------- Fooditems Section Ends -------------------- 
 
 # -------------------------  Filters Section Starts -------------------- 

@@ -339,8 +339,12 @@
                 <thead class="table-secondary">
                   <tr>
                     <th>#</th>
+                    <th>Image</th>
                     <th>Name</th>
+                    <th>Rate</th>
                     <th>Category</th>
+                    <th>Ingredients</th>
+                    <th>Cuisine</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -349,7 +353,17 @@
                   <tr>
                     <td>{{loop.index}}</td>
                     <td>
+                      <img src="{{fooditem.food_item_img}}" >
+                    </td>
+                    <td>
                       <p class="mb-0">{{fooditem.food_item_name}}</p>
+                    </td>
+                    <td>
+                      <p class="mb-0">{{fooditem.food_item_rate}}</p>
+                    </td>
+               
+                    <td>
+                      <p class="mb-0">{{fooditem.food_item_cat}}</p>
                     </td>
 
                     <td>
@@ -359,7 +373,15 @@
 
                       {% endif %} {% endfor %}
                     </td>
+                    
+                    <td>
+                      {% for fetch in cuisinefetch %} {% if
+                      fooditem.food_item_cuisine == fetch.id %}
+                      <p class="mb-0">{{fetch.cuisine_name}}</p>
 
+                      {% endif %} {% endfor %}
+                    </td>
+                    
                     <td>
                       <div
                         class="
@@ -372,7 +394,7 @@
                         <a href="/fooditemupdate?id={{fooditem['id']}}"
                           ><i class="bi bi-pencil-fill"></i
                         ></a>
-                        <a href="/fooditemdel/{{fooditem['id']}}"
+                        <a href="/foodmenuitemdel/{{fooditem['id']}}"
                           ><i class="bi bi-trash-fill"></i
                         ></a>
                       </div>
