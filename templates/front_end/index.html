@@ -162,16 +162,15 @@
 	<table>
 		
 		  <tr>
-			{% for filter in fetch%}
+			{% for filter in fetch %}
 			<td>
 				<div class="switch">
 					<label>{{filter.filter_name}}:</label>
-					<input type="checkbox" hidden="hidden" id="enable1">
-					<label class="switch__label" for="enable1"></label>
+					<input type="checkbox" hidden="hidden" id="{{filter.id}}">
+					<label class="switch__label" for="{{filter.id}}"></label>
 				</div>
 			</td>
 			{% endfor %}
-			
 		  </tr>
 	</table>  
 	
@@ -223,10 +222,7 @@
 
 
 </div>
-<!-- PAGE END -->
-
-<!-- Bottom navigation -->
-<div id="bottom-toolbar" class="bottom-toolbar"></div>
+<!-- PAGE END -->	
 
 <!-- Social Icons Popup -->
 <div id="popup-social"></div>

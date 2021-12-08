@@ -464,7 +464,7 @@ ul.custom-listing--checked li {
   .page__content {
     width: calc(100% - 40px);
     height: 100%;
-    padding: 0 20px;
+    padding: 0 0px;
     overflow: scroll;
     position: relative;
     -webkit-overflow-scrolling: touch;
@@ -473,9 +473,9 @@ ul.custom-listing--checked li {
       padding-top: 90px;
       height: calc(100% - 90px); }
     .page__content--with-bottom-nav {
-      height: calc(100% - 80px); }
+      height: calc(100% - 10px); }
     .page__content.page__content--with-header.page__content--with-bottom-nav, .page__content.page__content--with-bottom-nav.page__content--with-header {
-      height: calc(100% - 170px); }
+      height: calc(100% - 10px); }
   .page__title-bar {
     display: flex;
     align-items: center;
@@ -925,7 +925,7 @@ body.panel-closing .page, body.panel-closing .bottom-toolbar {
       display: block;
       max-width: 4px; }
   .bottom-navigation__shop {
-    width: calc(100% - 20px);
+    width: calc(100% - 10px);
     padding: 0 10px;
     display: flex;
     align-items: center;
