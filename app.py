@@ -1,4 +1,4 @@
-from flask.templating import render_template, jsonify
+from flask import render_template, jsonify
 from flask_sqlalchemy import model
 from flask_restful import Resource, Api
 from werkzeug.utils import secure_filename
@@ -383,7 +383,11 @@ def index():
 class Categories(Resource):
     def get(self):
         menu= models.MenuCategory.query.all()
-        return jsonify(menu)
+        outJson = {"menu":[]}
+        for m in menu:
+            outJson["menu"].append(m.food_category_name)
+        print(outJson)
+        return jsonify(outJson)
 
 class FoodItem(Resource):
     def get(self):
@@ -394,7 +398,7 @@ class FoodItem(Resource):
 }
 
 
-api.add_resource(Categories, '/')
+api.add_resource(Categories, '/menu')
 api.add_resource(FoodItem, '/food')
 
 if __name__ == '__main__':
