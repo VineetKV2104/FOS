@@ -390,16 +390,20 @@ class Categories(Resource):
         return jsonify(outJson)
 
 class FoodItem(Resource):
-    def get(self):
-        return {
-  "indian": ["pav bhaji", "dal rice"],
-  "chinese":["fried rice","noodles","manchurian"],
-  "italian":["pasta","pizza"]
-}
+    def get(self,category):
+        menu = models.MenuCategory.query.filter_by(food_category_name=category).first()
+        item=models.FoodMenuItem.query.filter_by(food_item_cat=menu.id).all()
+        outjson= {"name":[],"rate":[],"img":[]}
+        for i in item:
+            outjson["name"].append(i.food_item_name)
+            outjson["rate"].append(i.food_item_rate)
+            outjson["img"].append("http://fos-testing.herokuapp.com/"+i.food_item_img)
+
+        return jsonify(outjson)
 
 
 api.add_resource(Categories, '/menu')
-api.add_resource(FoodItem, '/food')
+api.add_resource(FoodItem, '/food/category')
 
 if __name__ == '__main__':
    app.run(debug=True)
