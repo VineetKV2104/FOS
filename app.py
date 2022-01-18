@@ -1,9 +1,13 @@
-from flask.templating import render_template
+from flask.templating import render_template, jsonify
 from flask_sqlalchemy import model
+from flask_restful import Resource, Api
 from werkzeug.utils import secure_filename
 import settings
 from settings import app, db
 import models
+
+
+api = Api(app)
 
 
 # ------------------------- Super Admin Authentication Section Starts -------------------- 
@@ -374,6 +378,24 @@ def index():
         print(addition)
     fetch=models.FoodFilters.query.all() 
     return settings.render_template('front_end/index.html',fetch=fetch)
+
+
+class Categories(Resource):
+    def get(self):
+        menu= models.MenuCategory.query.all()
+        return jsonify(menu)
+
+class FoodItem(Resource):
+    def get(self):
+        return {
+  "indian": ["pav bhaji", "dal rice"],
+  "chinese":["fried rice","noodles","manchurian"],
+  "italian":["pasta","pizza"]
+}
+
+
+api.add_resource(Categories, '/')
+api.add_resource(FoodItem, '/food')
 
 if __name__ == '__main__':
    app.run(debug=True)
