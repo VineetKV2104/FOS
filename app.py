@@ -403,7 +403,7 @@ class FoodItem(Resource):
 
 
 api.add_resource(Categories, '/menu')
-api.add_resource(FoodItem, '/food/category')
+api.add_resource(FoodItem, '/food/<category>')
 
 if __name__ == '__main__':
    app.run(debug=True)
