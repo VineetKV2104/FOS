@@ -186,27 +186,59 @@ def fooditems():
     if not settings.session.get("name"):
         return settings.redirect("/login")
     if settings.request.method=="POST":
-        fooditemcount=models.FoodMenuItem.query.count()
         fooditemname=settings.request.form["fooditemname"]
         fooditemrate=settings.request.form["fooditemrate"]
         fooditemimg=settings.request.files["fooditemimg"]
         fooditemcat=settings.request.form["fooditemcat"]
         fooditemfilter=settings.request.form["fooditemfilter"]
         fooditemcuisine=settings.request.form["fooditemcuisine"]
+        ing_name = settings.request.form.getlist("ing_name") 
         fooditemimg.seek(0, settings.os.SEEK_END)
         if fooditemimg.tell()==0:
             pass
         fooditemimg.seek(0)
-        fname='static/images/fooditem/'+str(fooditemcount+1)+'_'+secure_filename(fooditemimg.filename)
+        fname='static/images/fooditem/'+secure_filename(fooditemimg.filename)
         fooditemimg.save(fname)
-        addfooditem=models.FoodMenuItem(food_item_name=fooditemname, food_item_rate=fooditemrate,food_item_img=fname, food_item_cat=fooditemcat, food_item_filter=fooditemfilter, food_item_cuisine=fooditemcuisine)
+        addfooditem=models.FoodMenuItem(food_item_name=fooditemname, food_item_rate=fooditemrate, food_item_cat=fooditemcat, food_item_filter=fooditemfilter, food_item_cuisine=fooditemcuisine, ingredients=ing_name)
         db.session.add(addfooditem)
         db.session.commit()
+
+    fetching=models.Ingredient.query.all()
     ingredientdata=models.MenuCategory.query.all()
     fooditemdata=models.FoodMenuItem.query.all()
     filterfetch=models.FoodFilters.query.all()
     cuisinefetch=models.Cuisine.query.all()
-    return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata, filterfetch=filterfetch, cuisinefetch=cuisinefetch)
+    return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata, filterfetch=filterfetch, cuisinefetch=cuisinefetch, fetching = fetching)
+
+@app.route('/fooditemupdate', methods=["GET","POST"]) # End Point to Update Food Menu Item Continued
+def foodmenuitemupdate():
+    if not settings.session.get("name"):
+        return settings.redirect("/login")
+    if settings.request.method=="POST":
+        id = settings.request.form['id']
+        fooditemname=settings.request.form["fooditemname"]
+        fooditemrate=settings.request.form["fooditemrate"]
+        fooditemcat=settings.request.form["fooditemcat"]
+        fooditemfilter=settings.request.form["fooditemfilter"]
+        fooditemcuisine=settings.request.form["fooditemcuisine"]
+        ing_name = settings.request.form["ing_name"] 
+        fooditemdata=models.FoodMenuItem.query.filter_by(id=id).all()
+        fooditemdata.food_item_name=fooditemname
+        fooditemdata.food_item_rate=fooditemrate
+        fooditemdata.food_item_cat=fooditemcat
+        fooditemdata.food_item_filter=fooditemfilter
+        fooditemdata.food_item_cuisine=fooditemcuisine
+        fooditemdata.ing_name=ing_name
+        db.session.commit()
+        return settings.redirect("/fooditem")
+
+    id = settings.request.args['id']
+    fooditemdata=models.FoodMenuItem.query.filter_by(id=id).all()
+    fetching=models.Ingredient.query.all()
+    ingredientdata=models.MenuCategory.query.all()
+    filterfetch=models.FoodFilters.query.all()
+    cuisinefetch=models.Cuisine.query.all()
+    return settings.render_template("admin/update_fooditem.html", fooditemdata=fooditemdata, ingredientdata=ingredientdata, filterfetch=filterfetch, cuisinefetch=cuisinefetch, fetching = fetching)
 
 @app.route('/foodmenuitemdel/<int:id>', methods=["GET","POST"]) # End Point to Delete Ingredient
 def foodmenuitemdel(id):

@@ -276,7 +276,6 @@
                               class="form-control"
                               id="exampleFormControlInput1"
                               name="fooditemimg"
-                              placeholder="Enter Food Item Rate"
                             />
                           </div>
                         </div>
@@ -313,6 +312,24 @@
                               {% for i in cuisinefetch %}
                               <option value="{{i['id']}}">
                                 {{i['cuisine_name']}}
+                              </option>
+                              {% endfor %}
+                            </select>
+                      </div>
+
+
+                      <div class="mb-3">
+                        <select
+                              class="form-select"
+                              aria-label="Default select example"
+                              name="ing_name"
+                              required multiple>
+                              <option value="#" active disabled>
+                                Select Ingredients
+                              </option>
+                              {% for i in fetching %}
+                              <option value="{{i.id}}">
+                                {{i.ing_name}}
                               </option>
                               {% endfor %}
                             </select>
@@ -367,8 +384,8 @@
                     </td>
 
                     <td>
-                      {% for ingredient in ingredientdata %} {% if
-                      fooditem.ingredients == ingredient.ing_cat_id %}
+                      {% for ingredient in fetching %} {% if
+                      fooditem.ingredients == ingredient.id%}
                       <p class="mb-0">{{ingredient.ing_name}}</p>
 
                       {% endif %} {% endfor %}
