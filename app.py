@@ -107,24 +107,15 @@ def fooditems():
         fooditemimg.seek(0)
         fname='static/images/fooditem/'+secure_filename(fooditemimg.filename)
         fooditemimg.save(fname)
-        addfooditem=models.FoodMenuItem(food_item_name=fooditemname, food_item_rate=fooditemrate, food_item_cat=fooditemcat, food_item_filter=fooditemfilter, food_item_cuisine=fooditemcuisine)
+        addfooditem=models.FoodMenuItem(food_item_name=fooditemname, food_item_rate=fooditemrate, food_item_cat=fooditemcat, food_item_filter=fooditemfilter, food_item_cuisine=fooditemcuisine, ingredients=ing_name)
         db.session.add(addfooditem)
         db.session.commit()
 
-        fooditemdata=models.FoodMenuItem.query.all()
-
-        for i in ing_name:
-            add_ing = models.FoodIngredients(fid=fooditemdata[len(fooditemdata)-1].id, fing_name=i)
-            db.session.add(add_ing)
-            db.session.commit()
-
-    fetching=models.Ingredient.query.all()
     ingredientdata=models.MenuCategory.query.all()
     fooditemdata=models.FoodMenuItem.query.all()
     filterfetch=models.FoodFilters.query.all()
     cuisinefetch=models.Cuisine.query.all()
-    foodingredients=models.FoodIngredients.query.all()
-    return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata, filterfetch=filterfetch, cuisinefetch=cuisinefetch, fetching = fetching, foodingredients=foodingredients)
+    return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata, filterfetch=filterfetch, cuisinefetch=cuisinefetch)
 
 @app.route('/fooditemupdate', methods=["GET","POST"]) # End Point to Update Food Menu Item Continued
 def foodmenuitemupdate():

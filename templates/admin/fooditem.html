@@ -229,20 +229,7 @@
                       <div class="modal-body">
                         <div class="row">
                           <div class="mb-3">
-                            <!-- <select
-                              class="form-select"
-                              aria-label="Default select example"
-                              name="fooditemcat"
-                              required>
-                              <option value="#" active disabled>
-                                Select Category
-                              </option>
-                              {% for i in ingredientdata %}
-                              <option value="{{i['food_category_name']}}">
-                                {{i['food_category_name']}}
-                              </option>
-                              {% endfor %}
-                            </select> -->
+                            {{ ckeditor.create(name="ing_name") }}
                           </div>
                           <div class="mb-3">
                             <input
@@ -439,5 +426,6 @@
     <script src="static/admin-assets/js/pace.min.js"></script>
     <!--app-->
     <script src="static/admin-assets/js/app.js"></script>
+    <script src="https://cdn.ckeditor.com/4.10.0/full/ckeditor.js"></script>
   </body>
 </html>

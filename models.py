@@ -18,14 +18,6 @@ class FoodFilters(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filter_name = db.Column(db.String)
 
-class IngCategory(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    ing_cat_name = db.Column(db.String)
-
-class Ingredient(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    ing_cat_id = db.Column(db.Integer)
-    ing_name = db.Column(db.String)
 class RestActivity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     activity_name = db.Column(db.String)
@@ -58,6 +50,7 @@ class FoodMenuItem(db.Model):
     food_item_cat=db.Column(db.Integer)
     food_item_filter=db.Column(db.Integer)
     food_item_cuisine=db.Column(db.Integer)
+
 class OrderDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_number = db.Column(db.String)
@@ -74,8 +67,3 @@ class OrderItems(db.Model):
     rate = db.Column(db.Float)
     cooking_instructions = db.Column(db.String)
     general_instructions = db.Column(db.String)
-
-class FoodIngredients(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    fid = db.Column(db.Integer)
-    fing_name = db.Column(db.String)
