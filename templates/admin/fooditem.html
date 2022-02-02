@@ -166,14 +166,6 @@
                 <a href="/foodcat"><i class="bi bi-circle"></i>Food Category</a>
               </li>
               <li>
-                <a href="/ingcat"
-                  ><i class="bi bi-circle"></i>Ingredient Category</a
-                >
-              </li>
-              <li>
-                <a href="/ing"><i class="bi bi-circle"></i>Ingredient</a>
-              </li>
-              <li>
                 <a href="/fooditem"><i class="bi bi-circle"></i>Food Item</a>
               </li>
               <li>
@@ -237,7 +229,7 @@
                       <div class="modal-body">
                         <div class="row">
                           <div class="mb-3">
-                            <select
+                            <!-- <select
                               class="form-select"
                               aria-label="Default select example"
                               name="fooditemcat"
@@ -246,11 +238,11 @@
                                 Select Category
                               </option>
                               {% for i in ingredientdata %}
-                              <option value="{{i['id']}}">
+                              <option value="{{i['food_category_name']}}">
                                 {{i['food_category_name']}}
                               </option>
                               {% endfor %}
-                            </select>
+                            </select> -->
                           </div>
                           <div class="mb-3">
                             <input
@@ -319,7 +311,7 @@
 
 
                       <div class="mb-3">
-                        <select
+                        <!-- <select
                               class="form-select"
                               aria-label="Default select example"
                               name="ing_name"
@@ -328,11 +320,11 @@
                                 Select Ingredients
                               </option>
                               {% for i in fetching %}
-                              <option value="{{i.id}}">
+                              <option value="{{i.ing_name}}">
                                 {{i.ing_name}}
                               </option>
                               {% endfor %}
-                            </select>
+                            </select> -->
                       </div>
 
 
@@ -359,8 +351,7 @@
                     <th>Image</th>
                     <th>Name</th>
                     <th>Rate</th>
-                    <th>Category</th>
-                    <th>Ingredients</th>
+                    <!-- <th>Category</th> -->
                     <th>Cuisine</th>
                     <th>Actions</th>
                   </tr>
@@ -379,17 +370,17 @@
                       <p class="mb-0">{{fooditem.food_item_rate}}</p>
                     </td>
                
-                    <td>
+                    <!-- <td>
                       <p class="mb-0">{{fooditem.food_item_cat}}</p>
-                    </td>
+                    </td> -->
 
-                    <td>
+                    <!-- <td>
                       {% for ingredient in fetching %} {% if
                       fooditem.ingredients == ingredient.id%}
                       <p class="mb-0">{{ingredient.ing_name}}</p>
 
                       {% endif %} {% endfor %}
-                    </td>
+                    </td> -->
                     
                     <td>
                       {% for fetch in cuisinefetch %} {% if

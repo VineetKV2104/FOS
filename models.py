@@ -74,3 +74,8 @@ class OrderItems(db.Model):
     rate = db.Column(db.Float)
     cooking_instructions = db.Column(db.String)
     general_instructions = db.Column(db.String)
+
+class FoodIngredients(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    fid = db.Column(db.Integer)
+    fing_name = db.Column(db.String)

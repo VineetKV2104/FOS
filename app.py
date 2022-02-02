@@ -86,99 +86,7 @@ def foodcatdel(id):
 # ------------------------- Food Menu Category Section Ends -----------------------
 
 
-# ------------------------- Ingredient Category Section Starts -------------------- 
 
-@app.route('/ingcat', methods=["GET","POST"]) # End Point to Add & View the Menu Categories
-def ingcat():
-    if not settings.session.get("name"):
-            return settings.redirect("/login")
-    if settings.request.method=="POST":
-        ing_cat_name = settings.request.form["ing_cat_name"]
-        info=models.IngCategory(ing_cat_name=ing_cat_name)
-        db.session.add(info)
-        db.session.commit()
-    fetch=models.IngCategory.query.all() 
-    return settings.render_template('admin/ingcat.html', getinfo=fetch)
-
-@app.route('/ingcatupdater', methods=["GET","POST"]) # End Point to Update Menu Category
-def ingcatupdater():
-    if not settings.session.get("name"):
-            return settings.redirect("/login")
-    if settings.request.method=="POST":
-        id = settings.request.form['id']
-        ing_cat_name = settings.request.form["ing_cat_name"]
-        fetch=models.IngCategory.query.filter_by(id=id).first()
-        fetch.ing_cat_name=ing_cat_name
-        db.session.commit()
-        return settings.redirect("/ingcat")
-
-@app.route('/ingcatupdate', methods=["GET","POST"]) # End Point to Update Menu Category Continued
-def ingcatupdate():
-    if not settings.session.get("name"):
-            return settings.redirect("/login")
-    id = settings.request.args['id']
-    fetch=models.IngCategory.query.filter_by(id=id).all()
-    return settings.render_template("admin/update_ingcat.html",getinfo=fetch)
-
-@app.route('/ingcatdel/<int:id>', methods=["GET","POST"]) # End Point to Add the Menu Categories
-def ingcatdel(id):
-    if not settings.session.get("name"):
-            return settings.redirect("/login")
-    fetch=models.IngCategory.query.filter_by(id=id).first()
-    db.session.delete(fetch)
-    db.session.commit()
-    return settings.redirect("/ingcat")
-
-# ------------------------- Ingredient Category Section Ends -------------------- 
-
-#------------------------- Ingredient Section Starts ---------------------------- 
-
-@app.route('/ing', methods=["GET","POST"]) # End Point to Add & View the Ingredient
-def ing():
-    if not settings.session.get("name"):
-            return settings.redirect("/login")
-    if settings.request.method=="POST":
-        ing_cat_id = settings.request.form["ing_cat_id"]
-        ing_name = settings.request.form["ing_name"] 
-        info=models.Ingredient(ing_name=ing_name, ing_cat_id=ing_cat_id)
-        db.session.add(info)
-        db.session.commit()
-    fetch=models.Ingredient.query.all()
-    fetch_ing_cat=models.IngCategory.query.all()
-    return settings.render_template('admin/ing.html', getinfo=fetch, getinfo1=fetch_ing_cat)
-
-@app.route('/ingupdater', methods=["GET","POST"]) # End Point to Update Ingredient
-def ingupdater():
-    if not settings.session.get("name"):
-            return settings.redirect("/login")
-    if settings.request.method=="POST":
-        id = settings.request.form['id']
-        ing_cat_id = settings.request.form["ing_cat_id"]
-        ing_name = settings.request.form["ing_name"]
-        fetch=models.Ingredient.query.filter_by(id=id).first()
-        fetch.ing_cat_id=ing_cat_id
-        fetch.ing_name=ing_name
-        db.session.commit()
-        return settings.redirect("/ing")
-
-@app.route('/ingupdate', methods=["GET","POST"]) # End Point to Update Ingredient Continued
-def ingupdate():
-    if not settings.session.get("name"):
-            return settings.redirect("/login")
-    id = settings.request.args['id']
-    fetch=models.Ingredient.query.filter_by(id=id).all()
-    return settings.render_template("admin/update_ing.html",getinfo=fetch)
-
-@app.route('/ingdel/<int:id>', methods=["GET","POST"]) # End Point to Delete Ingredient
-def ingdel(id):
-    if not settings.session.get("name"):
-            return settings.redirect("/login")
-    fetch=models.Ingredient.query.filter_by(id=id).first()
-    db.session.delete(fetch)
-    db.session.commit()
-    return settings.redirect("/ing")
-
-# ------------------------- Ingredient Section Ends -------------------- 
 
 # ------------------------- Fooditems Section Starts -------------------- 
 @app.route('/fooditem', methods=["GET","POST"]) # End Point to Add & View the Filters
@@ -199,16 +107,24 @@ def fooditems():
         fooditemimg.seek(0)
         fname='static/images/fooditem/'+secure_filename(fooditemimg.filename)
         fooditemimg.save(fname)
-        addfooditem=models.FoodMenuItem(food_item_name=fooditemname, food_item_rate=fooditemrate, food_item_cat=fooditemcat, food_item_filter=fooditemfilter, food_item_cuisine=fooditemcuisine, ingredients=ing_name)
+        addfooditem=models.FoodMenuItem(food_item_name=fooditemname, food_item_rate=fooditemrate, food_item_cat=fooditemcat, food_item_filter=fooditemfilter, food_item_cuisine=fooditemcuisine)
         db.session.add(addfooditem)
         db.session.commit()
+
+        fooditemdata=models.FoodMenuItem.query.all()
+
+        for i in ing_name:
+            add_ing = models.FoodIngredients(fid=fooditemdata[len(fooditemdata)-1].id, fing_name=i)
+            db.session.add(add_ing)
+            db.session.commit()
 
     fetching=models.Ingredient.query.all()
     ingredientdata=models.MenuCategory.query.all()
     fooditemdata=models.FoodMenuItem.query.all()
     filterfetch=models.FoodFilters.query.all()
     cuisinefetch=models.Cuisine.query.all()
-    return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata, filterfetch=filterfetch, cuisinefetch=cuisinefetch, fetching = fetching)
+    foodingredients=models.FoodIngredients.query.all()
+    return settings.render_template('admin/fooditem.html', ingredientdata=ingredientdata, fooditemdata=fooditemdata, filterfetch=filterfetch, cuisinefetch=cuisinefetch, fetching = fetching, foodingredients=foodingredients)
 
 @app.route('/fooditemupdate', methods=["GET","POST"]) # End Point to Update Food Menu Item Continued
 def foodmenuitemupdate():
@@ -243,10 +159,15 @@ def foodmenuitemupdate():
 @app.route('/foodmenuitemdel/<int:id>', methods=["GET","POST"]) # End Point to Delete Ingredient
 def foodmenuitemdel(id):
     if not settings.session.get("name"):
-            return settings.redirect("/login")
+        return settings.redirect("/login")
     fetch=models.FoodMenuItem.query.filter_by(id=id).first()
     db.session.delete(fetch)
     db.session.commit()
+
+    fetch_ing=models.FoodIngredients.query.filter_by(fid=id).all()
+    for f in fetch_ing:
+        db.session.delete(f)
+        db.session.commit()
     return settings.redirect("/fooditem")
 # ------------------------- Fooditems Section Ends -------------------- 
 
